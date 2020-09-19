@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: okteto/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    - uses: okteto/namespace@master
+      id: okteto
+    - run: |
+        echo ${{ steps.okteto.outputs.kubeconfig }}
