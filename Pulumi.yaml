@@ -1,0 +1,6 @@
+name: pulumi-oketeto-conftest-demo
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: An example of using Open Policy Agent to test a Pulumi Kubernetes application
