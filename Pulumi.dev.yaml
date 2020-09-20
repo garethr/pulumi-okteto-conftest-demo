@@ -1,0 +1,2 @@
+config:
+  pulumi-oketeto-conftest-demo:namespace: garethr
