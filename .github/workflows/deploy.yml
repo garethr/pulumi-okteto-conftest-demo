@@ -30,18 +30,20 @@ jobs:
         token: ${{ secrets.OKTETO_TOKEN }}
     - uses: okteto/namespace@master
       id: okteto
+    - uses: pulumi/action-install-pulumi-cli@master
     - name: Install the Pulumi Open Policy Agent plugin
-      uses: docker://pulumi/actions
-      with:
-        args: plugin install analyzer policy-opa v0.0.2
+      run: |
+        pulumi plugin install analyzer policy-opa v0.0.2
       env:
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-        PULUMI_CI: up
+    - name: Set Pulumi stack
+      run: |
+        pulumi stack select dev
+      env:
+        PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     - name: Deploy using Pulumi
-      uses: docker://pulumi/actions
-      with:
-        args: up --yes
+      run: |
+        pulumi up --yes
       env:
         KUBECONFIG: ${{ steps.okteto.outputs.kubeconfig }}
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-        PULUMI_CI: up
