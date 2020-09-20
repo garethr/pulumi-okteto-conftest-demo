@@ -7,10 +7,23 @@ jobs:
   pulumi:
     name: Pulumi
     runs-on: ubuntu-latest
+    env:
+        PULUMI_VENV: venv
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install Python dependencies
+      run: |
+        python3 -m venv $PULUMI_VENV
+        $PULUMI_VENV/bin/pip3 install -r requirements.txt
+    - name: Run unit tests
+      run: |
+        $PULUMI_VENV/bin/pytest
     - uses: okteto/login@master
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
