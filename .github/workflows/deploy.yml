@@ -43,7 +43,7 @@ jobs:
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     - name: Deploy using Pulumi
       run: |
-        pulumi up --yes
+        pulumi up --policy-pack policy --yes
       env:
         KUBECONFIG: ${{ steps.okteto.outputs.kubeconfig }}
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
