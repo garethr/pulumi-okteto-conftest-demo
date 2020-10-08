@@ -11,11 +11,13 @@ provider = Provider("kubernetes", namespace=namespace)
 
 app_labels = {"app": "nginx"}
 
+replicas = config.get("replicas") or 1
+
 deployment = Deployment(
     "nginx",
     spec={
         "selector": {"match_labels": app_labels},
-        "replicas": 1,
+        "replicas": replicas,
         "template": {
             "metadata": {"labels": app_labels},
             "spec": {"containers": [{"name": "nginx", "image": "nginx"}]},

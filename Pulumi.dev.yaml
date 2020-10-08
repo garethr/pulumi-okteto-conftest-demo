@@ -1,2 +1,3 @@
 config:
   pulumi-oketeto-conftest-demo:namespace: garethr
+  pulumi-oketeto-conftest-demo:replicas: "2"
